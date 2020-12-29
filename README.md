@@ -1,3 +1,3 @@
-# Strange Attractor Generaot
+# Strange Attractor Generator
 
 Instructions to be added later.
