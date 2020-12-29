@@ -22,6 +22,11 @@ let attractor = {
       }
     }
   },
+  equations: [
+    `$\\frac{dx}{dt} = y + axy + xz$`,
+    `$\\frac{dy}{dt} = 1 - bx^2 + yz$`,
+    `$\\frac{dz}{dt} = x - x^2 - y^2$`,
+  ],
   variations: [
     {
       paramsStable: [2.07, 1.79],

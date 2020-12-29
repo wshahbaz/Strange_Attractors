@@ -13,6 +13,10 @@ let attractor = {
       }
     }
   },
+  equations: [
+    `$x_{n+1} = sin(by) + c \\times cos(bx)$`,
+    `$y_{n+1} = cos(ax) + d \\times sin(ay)$`,
+  ],
   variations: [
     {
       // paramsStable: [Math.random()*6 - 3, Math.random()*6 - 3, Math.random()*2 - 0.5, Math.random()*2 - 0.5],

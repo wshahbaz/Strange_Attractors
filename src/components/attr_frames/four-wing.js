@@ -23,6 +23,11 @@ let attractor = {
       }
     }
   },
+  equations: [
+    `$\\frac{dx}{dt} = ax + yz$`,
+    `$\\frac{dy}{dt} = bx + cy - xz$`,
+    `$\\frac{dz}{dt} = -z - xy$`,
+  ],
   variations: [
     {
       paramsStable: [0.2, 0.01, -0.4],

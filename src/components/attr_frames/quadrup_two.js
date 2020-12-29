@@ -14,6 +14,10 @@ let attractor = {
       }
     }
   },
+  equations: [
+    `$x_{n+1} = y - sign(x) \\times sin(ln|bx - c|) \\times atan(|cx - b|^2)$`,
+    `$y_{n+1} = a - x$`,
+  ],
   variations: [
     {
       // paramsStable: [Math.random()*6 - 3, Math.random()*6 - 3, Math.random()*2 - 0.5, Math.random()*2 - 0.5],

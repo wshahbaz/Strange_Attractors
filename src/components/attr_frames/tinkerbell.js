@@ -13,6 +13,10 @@ let attractor = {
       }
     }
   },
+  equations: [
+    `$x_{n+1} = x^2 - y^2 + ax + by$`,
+    `$y_{n+1} = 2xy + cx + dy$`,
+  ],
   variations: [
     {
       paramsStable: [0.9, -0.6013, 2.0, 0.5],

@@ -20,6 +20,11 @@ let attractor = {
       }
     }
   },
+  equations: [
+    `$\\frac{dx}{dt} = -ax - 4y - 4z - y^2$`,
+    `$\\frac{dy}{dt} = -ay - 4z - 4x - z^2$`,
+    `$\\frac{dz}{dt} = -az - 4x - 4y - x^2$`,
+  ],
   variations: [
     {
       paramsStable: [1.89],

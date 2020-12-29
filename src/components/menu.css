@@ -1,0 +1,24 @@
+.MuiFormControl-root {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.MuiFormLabel-root {
+  font-size: 20px !important;
+  margin: 10px 0px !important;
+  width: 200px !important;
+  text-align: left !important;
+  padding-left: 10px !important;
+}
+
+.MuiSelect-root {
+  margin-top: 25px !important;
+}
+
+.MuiTextField-root {
+  width: 100% !important;
+}
+
+#preButtonContainer {
+  padding-bottom: 25px;
+}

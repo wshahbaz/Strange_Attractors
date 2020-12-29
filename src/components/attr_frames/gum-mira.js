@@ -18,6 +18,11 @@ let attractor = {
         }
       }
     },
+    equations: [
+      `$G(x, mu) = mu \\times x + 2(1-mu)x^2 / (1 + x^2)$`,
+      `$x_{n+1} = y + ay(1-b(y^2)) + G(x,c)$`,
+      `$y_{n+1} = G(x_{n+1}, c) - x$`,
+    ],
   variations: [
     {
       paramsStable: [0.0, 0.5, -0.75],

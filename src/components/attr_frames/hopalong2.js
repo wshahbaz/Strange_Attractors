@@ -13,6 +13,10 @@ let attractor = {
         }
       }
     },
+    equations: [
+      `$x_{n+1} = y - 1 - \\sqrt{|bx - c|} \\times sign(x)$`,
+      `$y_{n+1} = a - x - 1$`,
+    ],
   variations: [
     {
       paramsStable: [7.169018234914956, 8.440158230861044, 2.560218751201483],

@@ -13,6 +13,10 @@ let attractor = {
       }
     }
   },
+  equations: [
+    `$x_{n+1} = y + 1 - (1.4x^2)$`,
+    `$y_{n+1} = 0.3x$`,
+  ],
   variations: [
     {
       // paramsStable: [Math.random()*6 - 3, Math.random()*6 - 3, Math.random()*2 - 0.5, Math.random()*2 - 0.5],

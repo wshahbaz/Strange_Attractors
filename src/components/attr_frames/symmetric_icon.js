@@ -31,6 +31,10 @@ let attractor = {
       }
     }
   },
+  equations: [
+    `$x_{n+1} = calcPoint(x,y, a, b, c, d, e, f).xNext$`,
+    `$y_{n+1} = calcPoint(x,y, a, b, c, d, e, f).yNext$`,
+  ],
   variations: [
     {
       paramsStable: [1.8, 0.0, 1.0, 0.1, -1.93, 5],

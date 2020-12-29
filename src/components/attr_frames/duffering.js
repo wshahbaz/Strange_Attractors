@@ -14,6 +14,10 @@ let attractor = {
       }
     }
   },
+  equations: [
+    `$x_{n+1} = y$`,
+    `$y_{n+1} = -bx + ay - y^3$`,
+  ],
   variations: [
     {
       paramsStable: [2.75, 0.2],

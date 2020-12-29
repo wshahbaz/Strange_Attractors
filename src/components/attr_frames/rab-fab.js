@@ -20,6 +20,11 @@ let attractor = {
       }
     }
   },
+  equations: [
+    `$\\frac{dx}{dt} = y(z - 1 + x^2) + bx$`,
+    `$\\frac{dy}{dt} = x(3z + 1 - x^2) + by$`,
+    `$\\frac{dz}{dt} = -2z(a + xy)$`,
+  ],
   variations: [
     {
       paramsStable: [0.14, 0.10],

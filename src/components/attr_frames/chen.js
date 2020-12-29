@@ -20,6 +20,11 @@ let attractor = {
       }
     }
   },
+  equations: [
+    `$\\frac{dx}{dt} = ax -yz$`,
+    `$\\frac{dy}{dt} = by + xz$`,
+    `$\\frac{dz}{dt} = cz + xy/3$`,
+  ],
   variations: [
     {
       paramsStable: [5, -10, -0.38],

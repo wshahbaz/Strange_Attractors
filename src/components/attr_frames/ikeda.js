@@ -16,6 +16,11 @@ let attractor = {
       }
     }
   },
+  equations: [
+    `$t = 0.4 - 6/(1 + x^2 + y^2)$`,
+    `$x_{n+1} = 1 + a(x \\times cos(t) - y \\times sin(t)$`,
+    `$y_{n+1} = a(x \\times sin(t) + y \\times cos(t)$`,
+  ],
   variations: [
     {
       paramsStable: [0.86 + Math.random()*40/1000],

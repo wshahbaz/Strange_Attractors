@@ -1,18 +1,22 @@
 let attractor = {
   name: "Hopalong 1",
   type: "2d",
-    functions: {
-      x: function(p) {
-        return function(x, y) {
-          return y - Math.sqrt(Math.abs(p[1] * x - p[2])) * Math.sign(x)
-        }
-      },
-      y: function(p) {
-        return function(x, y) {
-          return p[0] - x
-        }
+  functions: {
+    x: function (p) {
+      return function (x, y) {
+        return y - Math.sqrt(Math.abs(p[1] * x - p[2])) * Math.sign(x)
       }
     },
+    y: function (p) {
+      return function (x, y) {
+        return p[0] - x
+      }
+    }
+  },
+  equations: [
+    `$x_{n+1} = y - \\sqrt{|bx - c|} \\times sign(x)$`,
+    `$y_{n+1} = a - x$`,
+  ],
   variations: [
     {
       paramsStable: [2.0024573111008506, 0.9957158590496218, -0.008238666645837993],
@@ -21,7 +25,7 @@ let attractor = {
       transWidth: 2.2,
       transHeight: 3.5,
       scale: 7,
-      initVals: [0,0],
+      initVals: [0, 0],
       canTol: false,
       weightLow: 1.3,
       weightHigh: 1.7,
@@ -34,7 +38,7 @@ let attractor = {
       transWidth: 1.60,
       transHeight: 1.5,
       scale: 30,
-      initVals: [0,0],
+      initVals: [0, 0],
       canTol: false,
       weightLow: 1.3,
       weightHigh: 1.7,
@@ -47,7 +51,7 @@ let attractor = {
       transWidth: 2.1,
       transHeight: 1.9,
       scale: 25,
-      initVals: [0,0],
+      initVals: [0, 0],
       canTol: false,
       weightLow: 1.3,
       weightHigh: 2,
@@ -60,7 +64,7 @@ let attractor = {
       transWidth: 2,
       transHeight: 2,
       scale: 40,
-      initVals: [0,0],
+      initVals: [0, 0],
       canTol: true,
       weightLow: 1.3,
       weightHigh: 1.7,
@@ -70,4 +74,4 @@ let attractor = {
   ],
 }
 
-export {attractor};
+export { attractor };

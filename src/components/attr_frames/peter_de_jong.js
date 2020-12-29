@@ -13,6 +13,10 @@ let attractor = {
       }
     },
   },
+  equations: [
+    `$x_{n+1} = sin(ay) - cos(bx)$`,
+    `$y_{n+1} = sin(cx) - cos(dy)$`,
+  ],
   variations: [
     {
       paramsStable: [1.641, 1.902, 0.316, 1.525],

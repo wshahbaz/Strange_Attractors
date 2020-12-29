@@ -20,6 +20,11 @@ let attractor = {
       }
     }
   },
+  equations: [
+    `$\\frac{dx}{dt} = sin(y) - ax$`,
+    `$\\frac{dy}{dt} = sin(z) - ay$`,
+    `$\\frac{dz}{dt} = sin(x) - az$`,
+  ],
   variations: [
     {
       paramsStable: [0.208186],

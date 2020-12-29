@@ -15,6 +15,10 @@ let attractor = {
       }
     }
   },
+  equations: [
+    `$x_{n+1} = x + y_{n+1}$`,
+    `$y_{n+1} = y + ay + bx(x-1) + cxy$`,
+  ],
   variations: [
     {
       paramsStable: [-0.00028067006629673184, 1.1990230569427907, -0.000108451324518962],

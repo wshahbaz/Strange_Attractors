@@ -22,6 +22,11 @@ let attractor = {
       }
     }
   },
+  equations: [
+    `$\\frac{dx}{dt} = (z-b)x - dy$`,
+    `$\\frac{dy}{dt} = dx + (z-b)y$`,
+    `$\\frac{dz}{dt} = c + az - {z^3}/{3} - (x^2 + y^2)(1 + ez) + fzx^2$`,
+  ],
   variations: [
     {
       paramsStable: [0.95, 0.7, 0.6, 3.5, 0.25, 0.1],
