@@ -14,7 +14,6 @@ const gingerbread = require("./attr_frames/gingerbread");
 const henon = require("./attr_frames/henon");
 const quadrup = require("./attr_frames/quadrup_two");
 const tinkerbell = require("./attr_frames/tinkerbell");
-const sinai = require("./attr_frames/sinai");
 const bognadov = require("./attr_frames/bogdanov");
 const duffering = require("./attr_frames/duffering");
 const ikeda = require("./attr_frames/ikeda");
@@ -33,38 +32,38 @@ const sprott = require("./attr_frames/sprott");
 const four_wing = require("./attr_frames/four-wing");
 
 const attractors = [
-  // peter_de_jong.attractor,
-  // clifford.attractor,
-  // svensson.attractor,
+  peter_de_jong.attractor,
+  clifford.attractor,
+  svensson.attractor,
   bedhead.attractor,
-  // fractel_dream1.attractor,
-  // fractel_dream2.attractor,
-  // fractel_dream3.attractor,
-  // fractel_dream4.attractor,
-  // hopalong1.attractor,
-  // hopalong2.attractor,
-  // gum_mira.attractor,
-  // symmetric_icon.attractor,
-  // gingerbread.attractor,
-  // henon.attractor,
-  // quadrup.attractor,
-  // tinkerbell.attractor,
+  fractel_dream1.attractor,
+  fractel_dream2.attractor,
+  fractel_dream3.attractor,
+  fractel_dream4.attractor,
+  hopalong1.attractor,
+  hopalong2.attractor,
+  gum_mira.attractor,
+  symmetric_icon.attractor,
+  gingerbread.attractor,
+  henon.attractor,
+  quadrup.attractor,
+  tinkerbell.attractor,
   bognadov.attractor,
-  // duffering.attractor,
-  // ikeda.attractor,
+  duffering.attractor,
+  ikeda.attractor,
 
-  // thomas.attractor,
-  // lorenz.attractor,
+  thomas.attractor,
+  lorenz.attractor,
   aizawa.attractor,
-  // dadras.attractor,
-  // chen.attractor,
-  // lorenz84.attractor,
-  // rossler.attractor,
-  // halvorsen.attractor,
-  // rab_fab.attractor,
-  // three_scroll.attractor,
-  // sprott.attractor,
-  // four_wing.attractor,
+  dadras.attractor,
+  chen.attractor,
+  lorenz84.attractor,
+  rossler.attractor,
+  halvorsen.attractor,
+  rab_fab.attractor,
+  three_scroll.attractor,
+  sprott.attractor,
+  four_wing.attractor,
 ]
 
 export default attractors;

@@ -8,13 +8,7 @@ import Output from './output';
 
 const StyledMainContainer = styled.div`
   display: flex;
-  
 `;
-
-const getRandVar = (attr) => {
-  let randAttrs = attr.variations;
-  return randAttrs[Math.floor(Math.random() * randAttrs.length)];
-}
 
 class Main extends Component {
   constructor(props) {
@@ -34,7 +28,7 @@ class Main extends Component {
       initVals = variation.initVals3D;
       timeDelta = variation.dt;
       view = VIEWS[Math.floor(Math.random() * VIEWS.length)]
-      console.log("view: ", view)
+      console.log("timeDelta: ", timeDelta)
     }
 
     this.state = {
@@ -48,7 +42,59 @@ class Main extends Component {
     };
   }
 
+  handleAttractorChange = (newAttr) => {
+    console.log("new attr", newAttr);
+    let randVarNum = Math.floor(Math.random() * newAttr.variations.length);
+    let randVar = newAttr.variations[randVarNum];
+    let params = randVar.paramsStable;
+    let initVals = (newAttr.type == "2d")? randVar.initVals : randVar.initVals3D;
+    let view = (newAttr.type == "2d")? null : VIEWS[Math.floor(Math.random() * VIEWS.length)];
+    let timeDelta = (newAttr.type == "2d")? null : randVar.dt;
+    console.log("new variation number: ", randVarNum);
+    this.setState({
+      attractor: newAttr,
+      params: params,
+      initVals: initVals,
+      variation: randVar,
+      view: view,
+      timeDelta: timeDelta,
+      varNumber: randVarNum,
+    });
+  }
+
+  handleVariationChange = (newVarNumber) => {
+    console.log("new variation num", newVarNumber);
+    let newVariation = this.state.attractor.variations[newVarNumber];
+    let newParams = newVariation.paramsStable;
+    let newInitVals = newVariation.initVals;
+    this.setState({
+      variation: newVariation,
+      params: newParams,
+      initVals: newInitVals,
+      varNumber: newVarNumber
+    })
+  }
+
+  handleViewChange = (newView) => {
+    console.log("new view", newView);
+    this.setState({
+      view: newView,
+    })
+  }
+
+  handleRender = (newState) => {
+    //renders push state of params, initVals, deltaTime (if exists)
+    //only need to update deltatime (others update since arr references)
+    console.log("new states: ", newState);
+    console.log("current state: ", this.state);
+    this.setState({
+      timeDelta: newState.timeDelta,
+    })
+  }
+
   render() {
+    console.log("render happening")
+    console.log("curr attr", this.state.attractor)
     return (
       <StyledMainContainer>
         <Menu 
@@ -57,8 +103,12 @@ class Main extends Component {
           initVals={this.state.initVals}
           variation={this.state.variation}
           view={this.state.view}
-          timeDelta={this.state.viewDelta}
+          timeDelta={this.state.timeDelta}
           varNumber={this.state.varNumber}
+          changeAttractor={this.handleAttractorChange}
+          changeVariation={this.handleVariationChange}
+          changeView={this.handleViewChange}
+          renderAttr={this.handleRender}
         />
         <Output 
           attractor={this.state.attractor}
@@ -66,7 +116,7 @@ class Main extends Component {
           initVals={this.state.initVals}
           variation={this.state.variation}
           view={this.state.view}
-          timeDelta={this.state.viewDelta}
+          timeDelta={this.state.timeDelta}
         />
       </StyledMainContainer>
     )

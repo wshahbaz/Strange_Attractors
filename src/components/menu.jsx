@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import Latex from 'react-latex';
 import { CodeBlock, atomOneLight } from "react-code-blocks";
 
+
 import ATTRACTORS from '../data/attractors';
 import VIEWS from '../data/views';
 import attractors from './attr_frames';
@@ -20,7 +21,7 @@ const StyledMenuContainer = styled.div`
   width: 450px;
   min-width: 350px;
   height: 100vh;
-  border: 15px solid ${globalPalette.white};
+  border: 15px solid ${globalPalette.veryLightGrey};
   padding: 10px;
   padding-bottom: 20px;
 
@@ -75,16 +76,10 @@ class Menu extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      attractor: this.props.attractor,
-      params: this.props.params,
-      initVals: this.props.initVals,
-      variation: this.props.variation,
-      view: this.props.view,
-      timeDelta: this.props.timeDelta,
-      varNumber: this.props.varNumber,
-    };
-
-    console.log("props: ", this.props)
+      currParams: this.props.params,
+      currInitVals: this.props.initVals,
+      currTimeDelta: this.props.timeDelta
+    }
 
   }
 
@@ -92,37 +87,53 @@ class Menu extends Component {
     console.log(e.target.value);
     //get attractor from list and rerender
     let attr = attractors.filter(att => att.name == e.target.value);
-    console.log(attr);
+    console.log(attr[0]);
     //send state up
+    this.props.changeAttractor(attr[0]);
   }
-
-  handleParamChange = (e, i) => {
-    console.log(Number(e.target.value));
-    let newParams = this.state.params;
-    newParams[i] = Number(e.target.value);
-    this.setState({ params: newParams });
-  }
-
-  handleInitValChange = (e, i) => {
-    console.log(Number(e.target.value));
-    let newInitVals = this.state.initVals;
-    newInitVals[i] = Number(e.target.value);
-    this.setState({ initVals: newInitVals });
-  }
-
   handleViewChange = (e) => {
-    this.setState({ view: e.target.value })
+    console.log("view: ", e.target.value);
+    this.props.changeView(e.target.value);
   }
-
   handleVariationChange = (e) => {
     //need to clean reset
+    console.log("new variation: ", e.target.value)
     let attr = e.target.value;
+    this.props.changeVariation(e.target.value);
+  }
 
+
+  handleParamChange = (e, i) => {
+    // if (isNaN(e.target.value)) return;
+    console.log(e.target.value);
+    let newParams = this.props.params;
+    newParams[i] = e.target.value;
+    this.setState({ currParams: newParams });
+  }
+  handleInitValChange = (e, i) => {
+    // if (isNaN(e.target.value)) return;
+    console.log(e.target.value);
+    let newInitVals = this.props.initVals;
+    newInitVals[i] = e.target.value;
+    this.setState({ currInitVals: newInitVals });
+  }
+  handleDeltaChange = (e) => {
+    // if (isNaN(e.target.value)) return;
+    this.setState({ currTimeDelta: e.target.value })
+  }
+
+  handleRender = (e) => {
+    //push state up
+    this.props.renderAttr(this.state);
   }
 
   render() {
+
+    console.log("menu props", this.props);
+    console.log("menu state", this.state);
+
     let codeBlk;
-    if (this.state.attractor.name == "Symmetric Icon") {
+    if (this.props.attractor.name == "Symmetric Icon") {
       codeBlk =
         <StyledCodeContainer>
           <CodeBlock
@@ -152,14 +163,14 @@ class Menu extends Component {
     }
 
     let alternateViewsCtrl;
-    if (this.state.attractor.type == "3d") {
+    if (this.props.attractor.type == "3d") {
       alternateViewsCtrl =
         <FormControl >
           <InputLabel> View </InputLabel>
           <Select
             labelId="attractor-select-label"
             id="attractor-select"
-            value={this.state.view}
+            value={this.props.view}
             onChange={this.handleViewChange}
           >
             {VIEWS.map(view => {
@@ -174,28 +185,33 @@ class Menu extends Component {
           <Select
             labelId="attractor-select-label"
             id="attractor-select"
-            defaultValue={this.state.varNumber}
-            onChange={this.handleViewChange}
+            value={this.props.varNumber}
+            onChange={this.handleVariationChange}
           >
-            {this.state.attractor.variations.map((attr, i) => {
-              return <MenuItem value={i}>Sample Variation {i}</MenuItem>
+            {this.props.attractor.variations.map((attr, i) => {
+              return <MenuItem value={i}> Sample Variation {i} </MenuItem>
             })}
           </Select>
         </FormControl>
+    }
+
+    let dtCtrl;
+    if (this.props.attractor.type == "3d") {
+
     }
 
     return (
       <StyledMenuContainer>
 
         <StyledTitle>
-          Attractor: {this.state.attractor.name}
+          Attractor: {this.props.attractor.name}
         </StyledTitle>
 
         {/* code block component */}
         {codeBlk}
 
         <StyledEquations>
-          {this.state.attractor.equations.map(eqn => {
+          {this.props.attractor.equations.map(eqn => {
             return <Latex displayMode={true}>{eqn}</Latex>
           })}
         </StyledEquations>
@@ -205,7 +221,7 @@ class Menu extends Component {
           <Select
             labelId="attractor-select-label"
             id="attractor-select"
-            value={this.state.attractor.name}
+            value={this.props.attractor.name}
             onChange={this.handleAttractorChange}
           >
             {ATTRACTORS.map(attr => {
@@ -217,10 +233,9 @@ class Menu extends Component {
         {/* variation or view ctrl */}
         {alternateViewsCtrl}
 
-
         <StyledParamContainer>
           <StyledSubtitle> Parameters</StyledSubtitle>
-          {this.state.params.map((param, i) => {
+          {this.props.params.map((param, i) => {
             let paramLabels = ["a", "b", "c", "d", "e", "f"]
             let cls = `param-input-${i}`
             return (
@@ -229,17 +244,30 @@ class Menu extends Component {
                 <TextField
                   id="standard-required"
                   className={cls}
-                  defaultValue={this.state.params[i]}
+                  value={this.props.params[i]}
                   onChange={(e) => this.handleParamChange(e, i)}
                 />
               </StyledParamInput>
             )
           })}
+          {/* add dt ctrl */}
+          {this.props.attractor.type == "3d" && 
+            <StyledParamInput>
+            <StyledParamLabel> dt </StyledParamLabel>
+            <TextField
+              id="standard-required"
+              className={'param-input-dt'}
+              value={this.props.timeDelta}
+              onChange={(e) => this.handleDeltaChange(e)}
+            />
+          </StyledParamInput>
+          }
+          
         </StyledParamContainer>
 
         <StyledParamContainer id="preButtonContainer">
           <StyledSubtitle> Starting Values</StyledSubtitle>
-          {this.state.initVals.map((param, i) => {
+          {this.props.initVals.map((param, i) => {
             let valLabels = ["x", "y", "z"]
             let cls = `initVal-input-${i}`
             return (
@@ -248,7 +276,7 @@ class Menu extends Component {
                 <TextField
                   id="standard-required"
                   className={cls}
-                  defaultValue={this.state.initVals[i]}
+                  value={this.props.initVals[i]}
                   onChange={(e) => this.handleInitValChange(e, i)}
                 />
               </StyledParamInput>
@@ -257,7 +285,7 @@ class Menu extends Component {
         </StyledParamContainer>
 
 
-        <Button variant="contained">Render!</Button>
+        <Button variant="contained" onClick={this.handleRender}> Render! </Button>
 
       </StyledMenuContainer>
     )

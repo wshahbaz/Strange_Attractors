@@ -1,3 +1,36 @@
-const ATTRACTORS = ["Aizawa", "Bedhead", "Bogdanov"];
+const ATTRACTORS = [
+  "Peter de Jong",
+  "Clifford",
+  "Svennson",
+  "Bedhead", 
+  "Fractel Dream 1",
+  "Fractel Dream 2",
+  "Fractel Dream 3",
+  "Fractel Dream 4",
+  "Hopalong 1",
+  "Hopalong 2",
+  "Gumowski-Mira",
+  "Symmetric Icon",
+  "Gingerbread Man",
+  "Henon",
+  "Quadrup Two",
+  "Tinkerbell",
+  "Bogdanov",
+  "Duffering",
+  "Ikeda",
+
+  "Thomas",
+  "Lorenz",
+  "Aizawa", 
+  "Dadras",
+  "Chen",
+  "Lorenz 84",
+  "Rossler",
+  "Halvorsen",
+  "Rabinovich-Fabrikant",
+  "Three-Scroll Unified Chaotic System",
+  "Sprott",
+  "Four-Wing",
+];
 
 export default ATTRACTORS;

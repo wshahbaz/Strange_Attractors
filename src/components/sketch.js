@@ -20,9 +20,6 @@ function sketch(p) {
   let plotCtrl = true;
   let path = [];
   let rgbFunc;
-  //dragon curve
-  let dragonCurve = ["R"];
-  let segmentLength;
 
   let container = document.getElementsByClassName('sketchContainer');
   console.log("the container stats");
