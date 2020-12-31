@@ -28,30 +28,25 @@ const StyledMenuContainer = styled.div`
   overflow-y: scroll;
   overflow-x: scroll;
 `;
-
 const StyledTitle = styled.div`
   font-size: 25px;
   font-weight: bold;
   color: black;
   padding: 10px;
 `;
-
 const StyledCodeContainer = styled.div`
   text-align: left;
   font-size: 11px;
 `;
-
 const StyledEquations = styled.div`
   font-size: 12px;
   color: black;
   padding: 10px;
 `;
-
 const StyledParamInput = styled.div`
   display: flex;
   padding-top: 10px;
 `;
-
 const StyledParamLabel = styled.div`
   font-size: 15px;
   color: black;
@@ -59,11 +54,9 @@ const StyledParamLabel = styled.div`
   width: 50px;
   margin: auto;
 `;
-
 const StyledParamContainer = styled.div`
   padding-top: 20px;
 `;
-
 const StyledSubtitle = styled.div`
   font-size: 20px;
   color: black;
@@ -81,45 +74,43 @@ class Menu extends Component {
       currTimeDelta: this.props.timeDelta,
       currNumIter: this.props.numIter,
     }
-
   }
 
   handleAttractorChange = (e) => {
-    console.log(e.target.value);
     //get attractor from list and rerender
     let attr = attractors.filter(att => att.name == e.target.value);
-    console.log(attr[0]);
     //send state up
-    this.props.changeAttractor(attr[0]);
+    let newData = this.props.changeAttractor(attr[0]);
+    //update dt, numIter
+    this.setState({
+      currTimeDelta: newData.timeDelta,
+      currNumIter: newData.numIter
+    })
   }
   handleViewChange = (e) => {
-    console.log("view: ", e.target.value);
     this.props.changeView(e.target.value);
   }
   handleVariationChange = (e) => {
     //need to clean reset
-    console.log("new variation: ", e.target.value)
-    let attr = e.target.value;
-    this.props.changeVariation(e.target.value);
+    let newData = this.props.changeVariation(e.target.value);
+    //update numIter
+    this.setState({
+      currNumIter: newData.numIter
+    })
   }
 
 
   handleParamChange = (e, i) => {
-    // if (isNaN(e.target.value)) return;
-    console.log(e.target.value);
     let newParams = this.props.params;
     newParams[i] = e.target.value;
     this.setState({ currParams: newParams });
   }
   handleInitValChange = (e, i) => {
-    // if (isNaN(e.target.value)) return;
-    console.log(e.target.value);
     let newInitVals = this.props.initVals;
     newInitVals[i] = e.target.value;
     this.setState({ currInitVals: newInitVals });
   }
   handleDeltaChange = (e) => {
-    // if (isNaN(e.target.value)) return;
     this.setState({ currTimeDelta: e.target.value })
   }
   handleNumIterChange = (e) => {
@@ -132,9 +123,6 @@ class Menu extends Component {
   }
 
   render() {
-
-    console.log("menu props", this.props);
-    console.log("menu state", this.state);
 
     let codeBlk;
     if (this.props.attractor.name == "Symmetric Icon") {
@@ -256,7 +244,7 @@ class Menu extends Component {
               <TextField
                 id="standard-required"
                 className={'param-input-dt'}
-                defaultValue={this.props.timeDelta}
+                value={this.state.currTimeDelta}
                 onChange={(e) => this.handleDeltaChange(e)}
               />
             </StyledParamInput>
@@ -266,7 +254,7 @@ class Menu extends Component {
             <TextField
               id="standard-required"
               className={'param-input-numIter'}
-              defaultValue={this.props.numIter}
+              value={this.state.currNumIter}
               onChange={(e) => this.handleNumIterChange(e)}
             />
           </StyledParamInput>

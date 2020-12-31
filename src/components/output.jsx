@@ -30,7 +30,7 @@ export default Output;
 
 
 //------------------ Sketching functions ------------------//
-  //returns a sketch function to be used to draw attractor
+//returns a sketch function to be used to draw attractor
 const  sketcher = (data) => {
     let attractor = data.attractor;
     let attr = data.variation;
@@ -58,10 +58,7 @@ const  sketcher = (data) => {
       let rgbFunc;
 
       let container = document.getElementsByClassName('sketchContainer');
-      console.log("the container stats");
-      console.log(container);
       if (container && container[0]) {
-        console.log(container);
         width = container[0].offsetWidth;
         height = container[0].offsetHeight - 33;
 
@@ -72,7 +69,6 @@ const  sketcher = (data) => {
       p.setup = function () {
         //get colour permutation
         perm = getRandPerm()
-        console.log("attr", attractor.name, attr)
 
         //setup based on type of attractor drawing
         if (attractor.type == "2d") {
@@ -96,12 +92,9 @@ const  sketcher = (data) => {
           //choose rgb function
           let rgbCtrl = Math.round(Math.random());
           rgbFunc = (rgbCtrl) ? calcRGB : calcRGB3D;
-          console.log("rotations:");
-          console.log(`(${attr.rotate3Dx}, ${attr.rotate3Dy}, ${attr.rotate3Dz})`)
         }
 
         p.background('#171515');
-        console.log("fx: ", fx);
       }
 
       p.draw = function () {
@@ -185,7 +178,6 @@ const  sketcher = (data) => {
             y = y_prev + h * y_p;
             z = z_prev + h * z_p;
             if (isNaN(x + y + z)) {
-              console.log("not a numbers");
               p.clear();
               drawError();
               return;
@@ -233,7 +225,6 @@ const  sketcher = (data) => {
               vec.add(delta);
 
               if (isNaN(vec.x + vec.y + vec.z)) {
-                console.log("not a numbers");
                 p.clear();
                 drawError();
                 return;
@@ -268,7 +259,6 @@ const  sketcher = (data) => {
 
         //error msg
         const drawError = () => {
-          console.log('Following Parameters/Init values resulted in an undefined value or infinity')
           p.background(`${globalPalette.slate}`)
         }
 
@@ -282,17 +272,13 @@ const  sketcher = (data) => {
       }
 
       p.windowResized = function () {
-        // console.log("window was resized!")
         if (container && container[0]) {
-          console.log("new container dimensions:", container[0].offsetWidth, container[0].offsetHeight)
           width = container[0].offsetWidth;
           height = container[0].offsetHeight;
 
           attr_width = Math.min(width, height);
           attr_height = Math.min(height, width);
           p.resizeCanvas(width-30, height-63);
-        } else {
-          console.log("error would occur...")
         }
       }
     }

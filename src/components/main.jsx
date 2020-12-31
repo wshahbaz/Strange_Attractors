@@ -2,6 +2,7 @@ import {React, Component} from 'react';
 import styled from 'styled-components';
 import attractors from './attr_frames';
 import VIEWS from '../data/views';
+import * as _ from 'lodash';
 
 import Menu from './menu';
 import Output from './output';
@@ -14,12 +15,14 @@ class Main extends Component {
   constructor(props) {
     super(props);
 
-    let attractor, params, initVals, variation, varNumber, view, timeDelta, numIter;
+    let attractorPtr, attractor, params, initVals, variation, variationPtr, varNumber, view, timeDelta, numIter;
 
     //get attractor and init fields
-    attractor = attractors[Math.floor(Math.random() * attractors.length)];
+    attractorPtr = attractors[Math.floor(Math.random() * attractors.length)];
+    attractor = _.cloneDeep(attractorPtr);
     varNumber = Math.floor(Math.random() * attractor.variations.length)
-    variation = attractor.variations[varNumber];
+    variationPtr = attractor.variations[varNumber];
+    variation = _.cloneDeep(variationPtr);
     if (attractor.type == "2d") {
       params = variation.paramsStable;
       initVals = variation.initVals;
@@ -30,7 +33,6 @@ class Main extends Component {
       timeDelta = variation.dt;
       numIter = variation.iterStable;
       view = VIEWS[Math.floor(Math.random() * VIEWS.length)]
-      console.log("timeDelta: ", timeDelta)
     }
 
     this.state = {
@@ -45,15 +47,16 @@ class Main extends Component {
     };
   }
 
-  handleAttractorChange = (newAttr) => {
-    console.log("new attr", newAttr);
+  handleAttractorChange = (newAttrPtr) => {
+    let newAttr = _.cloneDeep(newAttrPtr);
     let randVarNum = Math.floor(Math.random() * newAttr.variations.length);
-    let randVar = newAttr.variations[randVarNum];
+    let randVarPtr = newAttr.variations[randVarNum];
+    let randVar = _.cloneDeep(randVarPtr);
     let params = randVar.paramsStable;
     let initVals = (newAttr.type == "2d")? randVar.initVals : randVar.initVals3D;
     let view = (newAttr.type == "2d")? null : VIEWS[Math.floor(Math.random() * VIEWS.length)];
     let timeDelta = (newAttr.type == "2d")? null : randVar.dt;
-    console.log("new variation number: ", randVarNum);
+    let numIter = randVar.iterStable;
     this.setState({
       attractor: newAttr,
       params: params,
@@ -62,24 +65,45 @@ class Main extends Component {
       view: view,
       timeDelta: timeDelta,
       varNumber: randVarNum,
+      numIter: numIter
     });
+    //return new data in object
+    return {
+      attractor: newAttr,
+      params: params,
+      initVals: initVals,
+      variation: randVar,
+      view: view,
+      timeDelta: timeDelta,
+      varNumber: randVarNum,
+      numIter: numIter
+    }
   }
 
   handleVariationChange = (newVarNumber) => {
-    console.log("new variation num", newVarNumber);
-    let newVariation = this.state.attractor.variations[newVarNumber];
+    let newVariationPtr = this.state.attractor.variations[newVarNumber];
+    let newVariation = _.cloneDeep(newVariationPtr);
     let newParams = newVariation.paramsStable;
     let newInitVals = newVariation.initVals;
+    let newNumIter = newVariation.iterStable;
     this.setState({
       variation: newVariation,
       params: newParams,
       initVals: newInitVals,
-      varNumber: newVarNumber
+      varNumber: newVarNumber,
+      numIter: newNumIter
     })
+    //return new data in object
+    return {
+      variation: newVariation,
+      params: newParams,
+      initVals: newInitVals,
+      varNumber: newVarNumber,
+      numIter: newNumIter
+    }
   }
 
   handleViewChange = (newView) => {
-    console.log("new view", newView);
     this.setState({
       view: newView,
     })
@@ -88,8 +112,6 @@ class Main extends Component {
   handleRender = (newState) => {
     //renders push state of params, initVals, deltaTime (if exists)
     //only need to update deltatime (others update since arr references)
-    console.log("new states: ", newState);
-    console.log("current state: ", this.state);
     this.setState({
       timeDelta: newState.currTimeDelta,
       numIter: newState.currNumIter
@@ -97,8 +119,6 @@ class Main extends Component {
   }
 
   render() {
-    console.log("render happening")
-    console.log("curr state", this.state)
     return (
       <StyledMainContainer>
         <Menu 
