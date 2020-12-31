@@ -14,7 +14,7 @@ class Main extends Component {
   constructor(props) {
     super(props);
 
-    let attractor, params, initVals, variation, varNumber, view, timeDelta;
+    let attractor, params, initVals, variation, varNumber, view, timeDelta, numIter;
 
     //get attractor and init fields
     attractor = attractors[Math.floor(Math.random() * attractors.length)];
@@ -23,10 +23,12 @@ class Main extends Component {
     if (attractor.type == "2d") {
       params = variation.paramsStable;
       initVals = variation.initVals;
+      numIter = variation.iterStable;
     } else if (attractor.type == "3d") {
       params = variation.paramsStable;
       initVals = variation.initVals3D;
       timeDelta = variation.dt;
+      numIter = variation.iterStable;
       view = VIEWS[Math.floor(Math.random() * VIEWS.length)]
       console.log("timeDelta: ", timeDelta)
     }
@@ -39,6 +41,7 @@ class Main extends Component {
       view: view,
       timeDelta: timeDelta,
       varNumber: varNumber,
+      numIter: numIter
     };
   }
 
@@ -88,13 +91,14 @@ class Main extends Component {
     console.log("new states: ", newState);
     console.log("current state: ", this.state);
     this.setState({
-      timeDelta: newState.timeDelta,
+      timeDelta: newState.currTimeDelta,
+      numIter: newState.currNumIter
     })
   }
 
   render() {
     console.log("render happening")
-    console.log("curr attr", this.state.attractor)
+    console.log("curr state", this.state)
     return (
       <StyledMainContainer>
         <Menu 
@@ -105,6 +109,7 @@ class Main extends Component {
           view={this.state.view}
           timeDelta={this.state.timeDelta}
           varNumber={this.state.varNumber}
+          numIter={this.state.numIter}
           changeAttractor={this.handleAttractorChange}
           changeVariation={this.handleVariationChange}
           changeView={this.handleViewChange}
@@ -117,6 +122,7 @@ class Main extends Component {
           variation={this.state.variation}
           view={this.state.view}
           timeDelta={this.state.timeDelta}
+          numIter={this.state.numIter}
         />
       </StyledMainContainer>
     )

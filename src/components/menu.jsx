@@ -78,7 +78,8 @@ class Menu extends Component {
     this.state = {
       currParams: this.props.params,
       currInitVals: this.props.initVals,
-      currTimeDelta: this.props.timeDelta
+      currTimeDelta: this.props.timeDelta,
+      currNumIter: this.props.numIter,
     }
 
   }
@@ -120,6 +121,9 @@ class Menu extends Component {
   handleDeltaChange = (e) => {
     // if (isNaN(e.target.value)) return;
     this.setState({ currTimeDelta: e.target.value })
+  }
+  handleNumIterChange = (e) => {
+    this.setState({ currNumIter: e.target.value })
   }
 
   handleRender = (e) => {
@@ -195,11 +199,6 @@ class Menu extends Component {
         </FormControl>
     }
 
-    let dtCtrl;
-    if (this.props.attractor.type == "3d") {
-
-    }
-
     return (
       <StyledMenuContainer>
 
@@ -251,18 +250,27 @@ class Menu extends Component {
             )
           })}
           {/* add dt ctrl */}
-          {this.props.attractor.type == "3d" && 
+          {this.props.attractor.type == "3d" &&
             <StyledParamInput>
-            <StyledParamLabel> dt </StyledParamLabel>
+              <StyledParamLabel> dt </StyledParamLabel>
+              <TextField
+                id="standard-required"
+                className={'param-input-dt'}
+                defaultValue={this.props.timeDelta}
+                onChange={(e) => this.handleDeltaChange(e)}
+              />
+            </StyledParamInput>
+          }
+          <StyledParamInput>
+            <StyledParamLabel id="numIterLabel"> Number of Iterations </StyledParamLabel>
             <TextField
               id="standard-required"
-              className={'param-input-dt'}
-              value={this.props.timeDelta}
-              onChange={(e) => this.handleDeltaChange(e)}
+              className={'param-input-numIter'}
+              defaultValue={this.props.numIter}
+              onChange={(e) => this.handleNumIterChange(e)}
             />
           </StyledParamInput>
-          }
-          
+
         </StyledParamContainer>
 
         <StyledParamContainer id="preButtonContainer">

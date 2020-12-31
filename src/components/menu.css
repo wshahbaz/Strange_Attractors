@@ -22,3 +22,7 @@
 #preButtonContainer {
   padding-bottom: 25px;
 }
+
+#numIterLabel {
+  width: 150px;
+}
